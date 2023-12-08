@@ -5,7 +5,15 @@ from datetime import datetime
 def logstamp_to_datetime(datestr):
     """
     Your docstring here.  Replace the pass keyword below with your implementation.
-    """
+    from datetime import datetime"""
+    return datetime.strptime(datestr, '%Y-%m-%dT%H:%M:%S')
+
+# Example usage:
+if __name__ == "__main__":
+    datestr = '2014-07-03T23:31:22'
+    result = logstamp_to_datetime(datestr)
+    print(result)
+
     pass
 
 

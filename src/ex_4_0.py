@@ -16,8 +16,7 @@ except ImportError:
 
 # Use this FILENAME variable to test your function.
 FILENAME = get_data_file_path('messages.log')
-# >>>> DO NOT MODIFY CODE ABOVE <<<<
-
+# >>>> DO NOT MODIFY CODE ABOVE <<<
 def get_shutdown_events(logfile):
     shutdown_entries = []
 
@@ -29,10 +28,19 @@ def get_shutdown_events(logfile):
     return shutdown_entries
 
 # Example usage:
-shutdown_events = get_shutdown_events(FILENAME)
+if __name__ == "__main__":
+    try:
+        from src.util import get_data_file_path
+    except ImportError:
+        from util import get_data_file_path
 
-if shutdown_events:
-    for event in shutdown_events:
-        print(event)
-else:
-    print("No shutdown events found.")
+    # Use this FILENAME variable to test your function.
+    FILENAME = get_data_file_path('messages.log')
+
+    shutdown_events = get_shutdown_events(FILENAME)
+
+    if shutdown_events:
+        for event in shutdown_events:
+            print(event)
+    else:
+        print("No shutdown events found.")
