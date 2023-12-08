@@ -8,40 +8,31 @@ except ImportError:
 # Use this FILENAME variable to test your function.
 FILENAME = get_data_file_path('messages.log')
 # >>>> DO NOT MODIFY CODE ABOVE <<<<
+""" ex_4_0.py """
+try:
+    from src.util import get_data_file_path
+except ImportError:
+    from util import get_data_file_path
+
+# Use this FILENAME variable to test your function.
+FILENAME = get_data_file_path('messages.log')
+# >>>> DO NOT MODIFY CODE ABOVE <<<<
+
 def get_shutdown_events(logfile):
-    """
-    Read the specified log file and return a list of lines where a shutdown was initiated.
+    shutdown_entries = []
 
-    Args:
-        logfile (str): The path to the log file.
+    with open(logfile, 'r') as file:
+        for line in file:
+            if "Shutdown initiated" in line:
+                shutdown_entries.append(line.strip())
 
-    Returns:
-        list: A list of lines where a shutdown was initiated.
-    """
-    shutdown_events = []
-
-    try:
-        with open(logfile, 'r') as file:
-            for line in file:
-                if "Shutdown initiated" in line:
-                    shutdown_events.append(line.strip())
-    except FileNotFoundError:
-        print(f"The file {logfile} was not found.")
-    except Exception as e:
-        print(f"An error occurred: {e}")
-
-    return shutdown_events
+    return shutdown_entries
 
 # Example usage:
-logfile_path = "path/to/messages.log"
-shutdown_lines = get_shutdown_events(logfile_path)
+shutdown_events = get_shutdown_events(FILENAME)
 
-# The code below will call your function and print the results
-if __name__ == "__main__":
-    print(f"{shutdown_lines=}")
-    if shutdown_lines:
-        for line in shutdown_lines:
-            print(line)
-    else:
-        print("No shutdown events found in the log file.")
-
+if shutdown_events:
+    for event in shutdown_events:
+        print(event)
+else:
+    print("No shutdown events found.")
